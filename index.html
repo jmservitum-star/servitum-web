@@ -29,7 +29,7 @@ footer{background:#071f33;color:#c9dce5;padding:34px 0}.foot{display:flex;align-
 .modal-top{position:sticky;top:0;background:#fff;z-index:2;padding:22px 24px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}
 .modal-top h2{margin:0;font-size:28px}.close{border:0;background:var(--ice);width:42px;height:42px;border-radius:50%;font-size:22px;cursor:pointer}
 .products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:22px}.product{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:#fff}.product img{width:100%;height:180px;object-fit:contain;background:#fff;padding:8px;box-sizing:border-box}.product-body{padding:16px}.product h3{font-size:16px;margin:0 0 6px}.product p{font-size:12px;color:var(--muted);line-height:1.45;min-height:35px;margin:0 0 13px}.add{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);font-weight:800;cursor:pointer}.add.selected{background:var(--navy);color:#fff;border-color:var(--navy)}
-.cartbar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:80;background:#071f33;color:#fff;border-radius:16px;padding:11px 12px 11px 18px;display:none;align-items:center;gap:18px;box-shadow:0 18px 50px rgba(0,0,0,.25);width:min(560px,calc(100% - 32px))}
+.cartbar{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:130;background:#071f33;color:#fff;border-radius:16px;padding:11px 12px 11px 18px;display:none;align-items:center;gap:18px;box-shadow:0 18px 50px rgba(0,0,0,.25);width:min(560px,calc(100% - 32px))}
 .cartbar.show{display:flex}.cartbar span{font-size:14px;flex:1}.cartbar .btn{padding:10px 14px}.quote-list{background:#f5fafc;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px;line-height:1.6}.quote-list b{display:block;margin-bottom:8px}.quote-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #dfe9f1}.quote-item:last-child{border-bottom:0}.quote-item-info{min-width:0;flex:1}.quote-item-info span{display:block;font-weight:700;color:#17324d}.quote-item-info small{display:block;color:var(--muted);margin-top:1px}.quote-item-actions{display:flex;align-items:center;gap:6px}.qty-control{display:flex;align-items:center;border:1px solid #c9d9e5;border-radius:10px;overflow:hidden;background:#fff}.qty-btn{width:34px;height:34px;border:0;background:#eef4f8;color:#073b7a;font-size:20px;font-weight:800;cursor:pointer}.qty-input{width:48px;height:34px;border:0;border-left:1px solid #dbe5ed;border-right:1px solid #dbe5ed;text-align:center;font:inherit;font-weight:800;color:#17324d;outline:none}.remove{width:34px;height:34px;border:0;border-radius:9px;background:#fff0f0;color:#b73b3b;cursor:pointer;font-weight:800;font-size:17px}
 @media(max-width:760px){.products-grid{grid-template-columns:1fr 1fr}.modal-top h2{font-size:22px}}
 @media(max-width:500px){.products-grid{grid-template-columns:1fr}.cartbar{bottom:10px}.product p{min-height:0}.quote-item{align-items:flex-start;flex-direction:column}.quote-item-actions{width:100%;justify-content:flex-end}}
@@ -199,7 +199,7 @@ body{background:#fff;color:var(--kc-ink)}
 .kc-contact h2{margin:0;color:var(--kc-navy);font-size:30px}.kc-contact-actions{display:flex;align-items:center;gap:18px}.kc-contact-actions strong{font-size:20px;color:var(--kc-navy)}
 .catalog-modal .modal-panel{border-radius:5px}.modal-top{border-radius:5px 5px 0 0}.product{border-radius:4px}.product img{height:220px}.add{border-radius:3px}
 .whatsapp-float{border-radius:50%!important}
-.sales-tools,#quoteDrawer,.search-empty{display:none!important}
+.search-empty{display:none!important}
 @media(max-width:900px){.kc-hero-grid,.kc-quote-grid{grid-template-columns:1fr}.kc-hero-copy{padding:58px 0 36px}.kc-hero-visual{min-height:330px}.categories{grid-template-columns:repeat(2,1fr)}.kc-benefit-grid{grid-template-columns:1fr}.kc-benefit-grid>div{border-right:0;border-bottom:1px solid var(--kc-line)}.kc-contact-row{align-items:flex-start;flex-direction:column}}
 @media(max-width:580px){.categories{grid-template-columns:1fr}.kc-hero h1{font-size:42px}.kc-hero-visual{padding:24px}.kc-contact-actions{align-items:flex-start;flex-direction:column}.kc-header .nav{height:70px}}
 </style>
@@ -725,7 +725,24 @@ img[alt="Soluciones Servitum"]{
 @keyframes servitum-arrival-shimmer{0%,12%{left:-55%}25%,100%{left:145%}}
 @keyframes servitum-arrival-sparkle{0%,85%,100%{transform:scale(1) rotate(0)}90%{transform:scale(1.2) rotate(14deg)}95%{transform:scale(1) rotate(0)}}
 @media(prefers-reduced-motion:reduce){#servitum-new-arrival .new-arrival-shell,#servitum-new-arrival .new-arrival-tag::after,#servitum-new-arrival .new-arrival-tag span{animation:none!important;will-change:auto}}
-</style></head>
+</style>
+<style id="servitum-quote-final-visibility">
+/* Cotización: controles legibles y siempre visibles */
+#quoteForm > button[type="submit"] {
+ display:block !important; visibility:visible !important; opacity:1 !important;
+ width:100% !important; min-height:50px !important; margin-top:12px !important;
+ padding:14px 20px !important; border:0 !important; border-radius:5px !important;
+ background:#087ba5 !important; color:#ffffff !important;
+ font-size:16px !important; font-weight:700 !important;
+ cursor:pointer !important; pointer-events:auto !important;
+ position:relative !important; z-index:2 !important;
+}
+#quoteForm > button[type="submit"]:hover{background:#063e78 !important}
+#quoteList {color:#12345a !important;background:#f5fafc !important}
+#quoteList b,#quoteList span{color:#12345a !important}
+.catalog-modal .product .add{display:block !important;visibility:visible !important;opacity:1 !important}
+</style>
+</head>
 <body>
 
 
@@ -1227,7 +1244,7 @@ function openCategory(index){
      <img src="${images[0]}" alt="${it[0]}" data-gallery-image>
      ${images.length>1?`<button type="button" class="gallery-nav gallery-prev" aria-label="Foto anterior">‹</button><button type="button" class="gallery-nav gallery-next" aria-label="Foto siguiente">›</button><span class="gallery-count">1/${images.length}</span><div class="gallery-dots">${images.map((_,n)=>`<button type="button" class="gallery-dot ${n===0?'active':''}" data-gallery-dot="${n}" aria-label="Ver foto ${n+1}"></button>`).join('')}</div>`:''}
    </div>`;
-   return `<article class="product" data-images='${JSON.stringify(images)}'>${gallery}<div class="product-body"><h3>${it[0]}</h3><p>${it[1]}</p><button class="add ${on?'selected':''}" data-key="${key}">${on?'Agregar otra unidad +':'+ Agregar a cotización'}</button></div></article>`;
+   return `<article class="product" data-images='${JSON.stringify(images)}'>${gallery}<div class="product-body"><h3>${it[0]}</h3><p>${it[1]}</p><button type="button" class="add ${on?'selected':''}" data-key="${key}">${on?'Agregar otra unidad +':'+ Agregar a cotización'}</button></div></article>`;
  }).join('');
  modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
  const panel=modal.querySelector('.modal-panel'); if(panel) panel.scrollTop=0;
@@ -1319,7 +1336,11 @@ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hi
 document.getElementById('closeModal').onclick=closeModal;
 modal.onclick=e=>{if(e.target===modal)closeModal()};
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-document.getElementById('goQuote').onclick=()=>{closeModal();document.getElementById('cotizar').scrollIntoView({behavior:'smooth'})};
+document.getElementById('goQuote').onclick=()=>{
+ closeModal();
+ const target=document.getElementById('cotizar');
+ if(target) target.scrollIntoView({behavior:'smooth'});
+};
 
 document.getElementById('quoteForm').onsubmit=e=>{
  e.preventDefault();
@@ -1758,4 +1779,69 @@ renderCart();
   const added=new Date('2026-10-08T00:00:00-04:00').getTime();
   const now=Date.now();
   if(panel && now>=added && now<added+15*24*60*60*1000) panel.hidden=false;
-})();</script></body></html>
+})();</script>
+<style id="servitum-quote-button-fix">
+/* Mantener visible el botón de cotización en cada ficha de producto. */
+.catalog-modal .product .product-body .add {
+ display:block !important; visibility:visible !important; opacity:1 !important;
+ position:relative !important; width:100% !important; min-height:44px !important;
+ margin-top:12px !important; cursor:pointer !important; pointer-events:auto !important;
+ background:#ffffff; color:#12345a; border:1px solid #b8c9d9; font-weight:700;
+}
+.catalog-modal .product .product-body .add.selected {
+ background:#12345a !important; color:white !important;
+}
+</style>
+<script id="servitum-quote-button-safety">
+(function(){
+ document.addEventListener('click',function(e){
+   var button=e.target.closest('#productsGrid .product .add');
+   if(!button)return;
+   /* La lógica principal del catálogo gestiona la selección; esta capa
+      únicamente garantiza que el botón conserve su visibilidad. */
+   button.style.display='block';
+ },true);
+})();
+</script>
+
+<style id="servitum-catalog-click-stability">
+#catalogModal .product-body button.add,
+#catalogModal .product-body button.add.selected{
+ display:block!important;visibility:visible!important;opacity:1!important;
+ position:relative!important;z-index:3!important;min-height:46px!important;
+ width:100%!important;pointer-events:auto!important;
+}
+#catalogModal .product-body button.add.selected{background:#12345a!important;color:#fff!important}
+#catalogModal .products-grid{padding-bottom:90px!important}
+body:has(#catalogModal.open) #cartbar{z-index:99!important}
+#servitum-modal-quote-shortcut{
+ display:none;border:0;border-radius:9px;background:#0b7399;color:white;
+ font-size:13px;font-weight:700;padding:10px 13px;cursor:pointer;white-space:nowrap
+}
+#catalogModal.open #servitum-modal-quote-shortcut.has-items{display:inline-block}
+</style>
+<script id="servitum-catalog-click-stability-js">
+document.addEventListener('DOMContentLoaded',function(){
+ var modal=document.getElementById('catalogModal');
+ var top=modal&&modal.querySelector('.modal-heading-row');
+ var bar=document.getElementById('cartbar');
+ if(!modal||!top||!bar)return;
+ var shortcut=document.createElement('button');
+ shortcut.type='button';
+ shortcut.id='servitum-modal-quote-shortcut';
+ shortcut.textContent='Ver cotización';
+ top.appendChild(shortcut);
+ shortcut.addEventListener('click',function(){
+   var close=document.getElementById('closeModal');
+   if(close)close.click();
+   var section=document.getElementById('cotizar');
+   if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
+ });
+ var obs=new MutationObserver(function(){
+   shortcut.classList.toggle('has-items',bar.classList.contains('show'));
+ });
+ obs.observe(bar,{attributes:true,attributeFilter:['class']});
+ shortcut.classList.toggle('has-items',bar.classList.contains('show'));
+});
+</script>
+</body></html>
