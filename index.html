@@ -933,11 +933,84 @@ html.servitum-navidad .kc-header{border-top:3px solid #d5a945 !important}
   window.setInterval(actualizar,60*60*1000);
 })();
 </script>
+<style id="servitum-navidad-enhanced-v2">
+/* Ramas de pino, luces y adornos de temporada: todo local, sin recursos externos. */
+.servitum-navidad-garland{display:none;position:relative;height:37px;width:100%;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#f8fbf9,#fff)}
+html.servitum-navidad .servitum-navidad-garland{display:block}
+.servitum-navidad-garland-corner{position:absolute;top:0;left:0;height:36px;width:236px;z-index:2}
+.servitum-navidad-garland-corner svg{display:block;width:100%;height:100%}
+.servitum-navidad-garland-corner.right{left:auto;right:0;transform:scaleX(-1)}
+.servitum-navidad-garland-lights{position:absolute;left:12%;right:12%;top:6px;height:19px;border-top:1.5px solid #c9aa66;display:flex;align-items:flex-start;justify-content:space-around}
+.servitum-navidad-garland-lights span{width:8px;height:10px;margin-top:3px;border:1px solid #bc842d;border-radius:50% 50% 46% 46%;background:#ffda76;box-shadow:0 0 6px 2px rgba(244,202,107,.3);animation:servitum-navidad-luces 3.8s ease-in-out infinite}
+.servitum-navidad-garland-lights span:nth-child(even){background:#f0b9a2;box-shadow:0 0 6px 2px rgba(223,129,104,.16);animation-delay:1.7s}
+.servitum-navidad-garland-lights span:nth-child(3n){background:#c9e5cb;box-shadow:0 0 6px 2px rgba(135,189,153,.2);animation-delay:1.1s}
+@keyframes servitum-navidad-luces{0%,100%{opacity:.75}50%{opacity:1}}
+/* Franja y saludo de Navidad más visibles. */
+html.servitum-navidad .servitum-navidad-ribbon{min-height:59px;padding:14px 22px;gap:15px;font-size:clamp(15px,1.5vw,19px);font-weight:800;line-height:1.4;border-bottom:3px solid #d8b15d;box-shadow:0 5px 15px rgba(10,62,48,.11)}
+html.servitum-navidad .servitum-navidad-ribbon .servitum-navidad-star{font-size:23px}
+html.servitum-navidad .servitum-navidad-hero-tag{padding:10px 18px;margin:0 auto 18px;font-size:14px;border-color:#cbb27d;box-shadow:0 4px 15px rgba(14,84,68,.11)}
+/* Nieve ligera en la portada: sin capturar clics ni interferir con botones. */
+.kc-hero{position:relative}
+.servitum-navidad-snow{display:none;position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:4}
+html.servitum-navidad .servitum-navidad-snow{display:block}
+.servitum-navidad-flake{position:absolute;top:-38px;left:var(--flake-left);font-family:Arial,sans-serif;font-size:var(--flake-size);line-height:1;color:#72b5d8;opacity:0;text-shadow:0 0 4px rgba(255,255,255,.9);will-change:transform;animation:servitum-navidad-nieve var(--flake-duration) linear var(--flake-delay) infinite}
+@keyframes servitum-navidad-nieve{0%{transform:translate3d(0,-20px,0) rotate(0deg);opacity:0}10%{opacity:var(--flake-opacity)}88%{opacity:var(--flake-opacity)}100%{transform:translate3d(22px,105vh,0) rotate(155deg);opacity:0}}
+/* Discretos detalles navideños en esquinas de tarjetas, sin alterar las fotos. */
+html.servitum-navidad .category-showcase-card,html.servitum-navidad .kc-sector-card{position:relative}
+html.servitum-navidad .category-showcase-card:nth-child(3n+1)::after,
+html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{
+ content:"✦";position:absolute;right:11px;top:11px;z-index:5;
+ display:grid;place-items:center;width:29px;height:29px;
+ color:#b48321;background:#fff8e7;border:1px solid #e6ca86;border-radius:50%;
+ font-size:19px;line-height:1;pointer-events:none;box-shadow:0 3px 9px rgba(50,48,20,.14)
+}
+@media(max-width:700px){
+ .servitum-navidad-garland{height:30px}
+ .servitum-navidad-garland-corner{width:153px;height:29px}
+ .servitum-navidad-garland-lights{left:24%;right:24%;top:6px}
+ .servitum-navidad-garland-lights span{width:5px;height:7px}
+ html.servitum-navidad .servitum-navidad-ribbon{min-height:53px;padding:11px 12px;gap:7px;font-size:14px}
+ html.servitum-navidad .servitum-navidad-ribbon .servitum-navidad-star{font-size:15px}
+ html.servitum-navidad .servitum-navidad-hero-tag{font-size:12px;padding:9px 14px}
+ .servitum-navidad-flake:nth-child(2n){display:none}
+ html.servitum-navidad .category-showcase-card:nth-child(3n+1)::after,
+ html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{width:24px;height:24px;font-size:16px;right:7px;top:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .servitum-navidad-garland-lights span,.servitum-navidad-flake{animation:none!important}
+ html.servitum-navidad .servitum-navidad-snow{display:none}
+}
+</style>
 </head>
 <body>
 
 
 <header class="kc-header">
+<div id="servitum-navidad-garland-v2" class="servitum-navidad-garland" aria-hidden="true">
+  <div class="servitum-navidad-garland-corner left"><svg viewBox="0 0 236 42" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M-12 4 Q53 8 111 8 T237 12" fill="none" stroke="#986b35" stroke-width="2"/>
+  <g stroke="#116341" stroke-width="3.8" stroke-linecap="round">
+    <path d="M8 7l-4 13M8 7l14 13M26 7l-5 21M26 7l18 14M45 8l-9 17M45 8l17 16M66 8L54 25M66 8l19 15M88 8L73 24M88 8l17 17M112 9l-13 15M112 9l18 13M137 10l-11 15M137 10l16 13M159 11l-7 12M159 11l12 12M182 11l-7 10M182 11l11 9"/>
+  </g>
+  <g stroke="#2c8454" stroke-width="2.1" stroke-linecap="round">
+    <path d="M10 9l-9 7M10 9l12 5M32 8L17 16M32 8l13 8M56 8L42 17M56 8l14 8M79 9L65 17M79 9l13 7M101 9l-12 8M101 9l11 7M127 10l-9 9M127 10l11 8M151 11l-7 8M151 11l11 8"/>
+  </g>
+  <g fill="#b92e37"><circle cx="29" cy="19" r="4"/><circle cx="38" cy="21" r="3.3"/><circle cx="81" cy="21" r="3.4"/><circle cx="90" cy="23" r="3"/><circle cx="147" cy="22" r="3.3"/></g>
+  <g fill="#e8b650" stroke="#fff5cb" stroke-width=".8"><circle cx="64" cy="28" r="6"/><circle cx="126" cy="27" r="4.8"/></g>
+</svg></div>
+  <div class="servitum-navidad-garland-lights"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="servitum-navidad-garland-corner right"><svg viewBox="0 0 236 42" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M-12 4 Q53 8 111 8 T237 12" fill="none" stroke="#986b35" stroke-width="2"/>
+  <g stroke="#116341" stroke-width="3.8" stroke-linecap="round">
+    <path d="M8 7l-4 13M8 7l14 13M26 7l-5 21M26 7l18 14M45 8l-9 17M45 8l17 16M66 8L54 25M66 8l19 15M88 8L73 24M88 8l17 17M112 9l-13 15M112 9l18 13M137 10l-11 15M137 10l16 13M159 11l-7 12M159 11l12 12M182 11l-7 10M182 11l11 9"/>
+  </g>
+  <g stroke="#2c8454" stroke-width="2.1" stroke-linecap="round">
+    <path d="M10 9l-9 7M10 9l12 5M32 8L17 16M32 8l13 8M56 8L42 17M56 8l14 8M79 9L65 17M79 9l13 7M101 9l-12 8M101 9l11 7M127 10l-9 9M127 10l11 8M151 11l-7 8M151 11l11 8"/>
+  </g>
+  <g fill="#b92e37"><circle cx="29" cy="19" r="4"/><circle cx="38" cy="21" r="3.3"/><circle cx="81" cy="21" r="3.4"/><circle cx="90" cy="23" r="3"/><circle cx="147" cy="22" r="3.3"/></g>
+  <g fill="#e8b650" stroke="#fff5cb" stroke-width=".8"><circle cx="64" cy="28" r="6"/><circle cx="126" cy="27" r="4.8"/></g>
+</svg></div>
+</div>
   <div class="wrap nav">
     <a class="brand" href="#inicio"><img src="assets/imagenes/59b24c87ccd7b595e4d9.webp" alt="Servitum" decoding="async"></a>
     <button class="menu" id="menu" aria-label="Abrir menú">☰</button>
@@ -1026,6 +1099,7 @@ html.servitum-navidad .kc-header{border-top:3px solid #d5a945 !important}
 <main>
 
 <section class="kc-hero" id="inicio">
+<div class="servitum-navidad-snow" aria-hidden="true"><span class="servitum-navidad-flake" style="--flake-left:6%;--flake-size:16px;--flake-duration:16s;--flake-delay:-2s;--flake-opacity:0.65">❄</span><span class="servitum-navidad-flake" style="--flake-left:14%;--flake-size:21px;--flake-duration:15s;--flake-delay:-11s;--flake-opacity:0.46">❄</span><span class="servitum-navidad-flake" style="--flake-left:24%;--flake-size:18px;--flake-duration:19s;--flake-delay:-7s;--flake-opacity:0.5">❄</span><span class="servitum-navidad-flake" style="--flake-left:35%;--flake-size:22px;--flake-duration:16s;--flake-delay:-17s;--flake-opacity:0.45">❄</span><span class="servitum-navidad-flake" style="--flake-left:46%;--flake-size:15px;--flake-duration:21s;--flake-delay:-5s;--flake-opacity:0.42">❄</span><span class="servitum-navidad-flake" style="--flake-left:57%;--flake-size:19px;--flake-duration:18s;--flake-delay:-12s;--flake-opacity:0.55">❄</span><span class="servitum-navidad-flake" style="--flake-left:67%;--flake-size:13px;--flake-duration:16s;--flake-delay:-3s;--flake-opacity:0.55">❄</span><span class="servitum-navidad-flake" style="--flake-left:76%;--flake-size:17px;--flake-duration:20s;--flake-delay:-14s;--flake-opacity:0.51">❄</span><span class="servitum-navidad-flake" style="--flake-left:86%;--flake-size:22px;--flake-duration:17s;--flake-delay:-8s;--flake-opacity:0.47">❄</span><span class="servitum-navidad-flake" style="--flake-left:94%;--flake-size:15px;--flake-duration:19s;--flake-delay:-18s;--flake-opacity:0.5">❄</span><span class="servitum-navidad-flake" style="--flake-left:31%;--flake-size:12px;--flake-duration:20s;--flake-delay:-20s;--flake-opacity:0.47">❄</span><span class="servitum-navidad-flake" style="--flake-left:71%;--flake-size:12px;--flake-duration:18s;--flake-delay:-22s;--flake-opacity:0.42">❄</span></div>
   <div class="wrap kc-hero-grid">
     <div class="kc-hero-copy">
       <span class="servitum-navidad-hero-tag servitum-navidad-only" aria-hidden="true">❄️ Temporada navideña · Servitum</span>
