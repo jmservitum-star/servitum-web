@@ -2004,11 +2004,21 @@ document.addEventListener('DOMContentLoaded',function(){
     if(controls)controls.hidden=active.length<2;
     go(current);
   };
-  root.querySelector('#servitum-new-prev').addEventListener('click',()=>go(current-1));
-  root.querySelector('#servitum-new-next').addEventListener('click',()=>go(current+1));
+  root.querySelector('#servitum-new-prev').addEventListener('click',()=>{go(current-1);restart();});
+  root.querySelector('#servitum-new-next').addEventListener('click',()=>{go(current+1);restart();});
+  const tick=()=>{
+    if(document.hidden) return;
+    refresh();
+    if(active.length>1) go(current+1);
+  };
+  const restart=()=>{
+    if(timer!==null) clearInterval(timer);
+    timer=setInterval(tick,7000);
+  };
   refresh();
-  // Un único reloj: empieza sin clic y continúa aunque el cursor esté encima.
-  timer=setInterval(()=>{refresh();if(active.length>1)go(current+1)},7000);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh()});
+  restart();
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden){refresh();restart();}
+  });
 })();
 </script></body></html>
