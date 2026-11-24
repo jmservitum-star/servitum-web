@@ -1036,6 +1036,109 @@ html.servitum-navidad .kc-header .mega-shell {top:108px;}
   html.servitum-navidad .kc-header .links {top:91px;}
 }
 </style>
+<style id="servitum-service-carousel-layout-fix-v1">
+/* Carrusel de portada: pie propio para leyenda e indicadores, sin solapamientos. */
+#servitumServiceCarousel {
+  --servitum-carousel-footer:92px;
+  box-sizing:border-box;
+  isolation:isolate;
+}
+.kc-hero-visual #servitumServiceCarousel .servitum-service-image {
+  top:0 !important;
+  bottom:auto !important;
+  height:calc(100% - var(--servitum-carousel-footer)) !important;
+}
+/* El pie empieza donde termina la fotografía, no sobre ella. */
+#servitumServiceCarousel::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:var(--servitum-carousel-footer);
+  z-index:2;
+  pointer-events:none;
+  background:#f6fafc;
+  border-top:1px solid #e1eaf0;
+  box-sizing:border-box;
+}
+#servitumServiceCarousel .servitum-service-caption {
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:43px;
+  width:calc(100% - 32px);
+  max-width:none;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  z-index:3;
+  border-radius:0;
+  background:transparent;
+  color:#113e62;
+  text-align:center;
+  font-size:14px;
+  font-weight:750;
+  line-height:1.4;
+  letter-spacing:0;
+  text-shadow:none;
+  backdrop-filter:none;
+}
+#servitumServiceCarousel .servitum-service-dots {
+  left:50%;
+  right:auto;
+  bottom:11px;
+  transform:translateX(-50%);
+  z-index:5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:0;
+  max-width:calc(100% - 20px);
+  min-height:22px;
+}
+#servitumServiceCarousel .servitum-service-dot,
+#servitumServiceCarousel.logo-slide .servitum-service-dot {
+  display:block;
+  flex:0 0 auto;
+  box-sizing:border-box;
+  width:20px;
+  height:20px;
+  padding:5px;
+  border:5px solid transparent;
+  border-radius:999px;
+  box-shadow:none;
+  background:#a9c4d2;
+  background-clip:padding-box;
+  cursor:pointer;
+}
+#servitumServiceCarousel .servitum-service-dot.active,
+#servitumServiceCarousel.logo-slide .servitum-service-dot.active {
+  width:34px;
+  background:#078fb2;
+  background-clip:padding-box;
+}
+#servitumServiceCarousel .servitum-service-dot:focus-visible {
+  outline:2px solid #073b7a;
+  outline-offset:1px;
+}
+#servitumServiceCarousel .servitum-service-arrow {
+  top:calc((100% - var(--servitum-carousel-footer)) / 2);
+}
+@media(max-width:620px){
+  #servitumServiceCarousel {--servitum-carousel-footer:106px;}
+  #servitumServiceCarousel .servitum-service-caption {
+    left:13px;
+    right:13px;
+    width:calc(100% - 26px);
+    bottom:43px;
+    font-size:12px;
+    line-height:1.45;
+  }
+  #servitumServiceCarousel .servitum-service-dots {bottom:10px}
+}
+</style>
 </head>
 <body>
 
