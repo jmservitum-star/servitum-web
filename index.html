@@ -981,43 +981,51 @@ html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{
  html.servitum-navidad .servitum-navidad-snow{display:none}
 }
 </style>
-<style id="servitum-navidad-feliz-v7-css">
-/* Saludo navideño: imagen ligera centrada, sin franjas decorativas inferiores. */
-.servitum-navidad-saludo{
+<style id="servitum-navidad-feliz-panoramico-v8-css">
+/* Encabezado navideño ancho y más bajito, sin estirar letras ni adornos. */
+.servitum-navidad-saludo {
   display:none;
   width:100%;
+  margin:0;
+  padding:0;
   box-sizing:border-box;
   overflow:hidden;
-  align-items:center;
-  justify-content:center;
   background:#fff;
-  padding:2px 10px 4px;
   border-bottom:1px solid rgba(186,167,134,.14);
 }
-html.servitum-navidad .servitum-navidad-saludo{display:flex}
-.servitum-navidad-saludo img{
+html.servitum-navidad .servitum-navidad-saludo {display:block}
+.servitum-navidad-saludo picture {display:block;width:100%}
+.servitum-navidad-saludo img {
   display:block;
-  width:min(100%,840px);
+  width:100%;
   height:auto;
+  max-width:none;
   object-fit:contain;
-  aspect-ratio:1600 / 737;
+  object-position:center;
 }
-/* El saludo ya está dentro de la imagen: evitamos repetirlo en otra barra. */
+@media(max-width:600px) {
+  .servitum-navidad-saludo img {
+    width:100%;
+    height:auto;
+    max-height:180px;
+    object-fit:contain;
+  }
+}
+/* El saludo está en el banner: evitamos mostrarlo duplicado en la franja inferior. */
 html.servitum-navidad .servitum-navidad-ribbon{display:none!important}
-@media(max-width:700px){
- .servitum-navidad-saludo{padding:0 5px 3px}
- .servitum-navidad-saludo img{width:100%}
-}
-@media print{
- .servitum-navidad-saludo{display:none!important}
+@media print {
+  .servitum-navidad-saludo{display:none!important}
 }
 </style>
 </head>
 <body>
 
 
-<div id="servitum-navidad-feliz-v7" class="servitum-navidad-saludo">
-  <img src="assets/imagenes/feliz-navidad-servitum.svg?v=20261124" width="1600" height="737" alt="Feliz Navidad de Servitum" loading="lazy" decoding="async">
+<div id="servitum-navidad-feliz-v8" class="servitum-navidad-saludo">
+  <picture>
+    <source media="(max-width:600px)" srcset="assets/imagenes/feliz-navidad-servitum.svg?v=movil20261124">
+    <img src="assets/imagenes/feliz-navidad-panoramico.svg?v=20261124" width="2400" height="290" alt="Feliz Navidad de Servitum" loading="eager" decoding="async">
+  </picture>
 </div>
 <header class="kc-header">
   <div class="wrap nav">
