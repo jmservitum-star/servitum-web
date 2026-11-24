@@ -981,38 +981,99 @@ html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{
  html.servitum-navidad .servitum-navidad-snow{display:none}
 }
 </style>
-<style id="servitum-navidad-foto-blanco-v5">
-/* Fotografía navideña de pinos y adornos: arriba del menú, sin cubrir el logotipo. */
-.servitum-navidad-header-foto{
+<style id="servitum-navidad-bolas-v6-css">
+/* Navidad minimalista: cuatro esferas colgantes con oscilación suave, sin imágenes externas. */
+.servitum-navidad-bolas {
   display:none;
+  position:relative;
   width:100%;
-  height:clamp(112px,14.285vw,258px);
+  height:112px;
+  background:#fff;
   overflow:hidden;
+  box-sizing:border-box;
   pointer-events:none;
-  background-color:#ffffff;
-  background-image:url("assets/imagenes/navidad-encabezado.svg?v=claro20261124");
-  background-repeat:no-repeat;
-  background-size:cover;
-  background-position:center top;
-  border-bottom:0;
+  border-bottom:1px solid rgba(213,181,117,.18);
+}
+html.servitum-navidad .servitum-navidad-bolas {display:block;}
+.servitum-navidad-colgante {
+  position:absolute;
+  top:0;
+  left:var(--x);
+  width:var(--tamano);
+  height:calc(var(--hilo) + var(--tamano));
+  transform-origin:50% 0;
+  animation:servitum-bola-balanceo var(--duracion) ease-in-out var(--demora) infinite alternate;
+}
+.servitum-navidad-colgante::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:calc(50% - 1px);
+  height:var(--hilo);
+  width:2px;
+  background:linear-gradient(#d3b46a,#f0dca1);
+  box-shadow:0 0 1px rgba(133,107,54,.15);
+}
+.servitum-navidad-bola {
+  display:block;
+  position:absolute;
+  top:var(--hilo);
+  left:0;
+  width:var(--tamano);
+  height:var(--tamano);
+  border-radius:50%;
+  border:1px solid rgba(94,74,35,.13);
+  box-shadow:inset -5px -6px 10px rgba(0,0,0,.13),0 4px 9px rgba(0,0,0,.10);
+  background:
+    radial-gradient(circle at 29% 24%,rgba(255,255,255,.92) 0 6%,rgba(255,255,255,.4) 7% 15%,transparent 36%),
+    radial-gradient(circle at 33% 29%,#ff8790,#ca273c 44%,#8b122a 83%);
+}
+.servitum-navidad-colgante.dorada .servitum-navidad-bola {
+  background:
+    radial-gradient(circle at 29% 24%,rgba(255,255,255,.95) 0 7%,rgba(255,255,255,.45) 8% 17%,transparent 37%),
+    radial-gradient(circle at 33% 29%,#ffe7a1,#d8ad4b 50%,#a67b2d 87%);
+}
+.servitum-navidad-bola::before {
+  content:"";
+  position:absolute;
+  left:calc(50% - 7px);
+  top:-8px;
+  width:14px;
+  height:9px;
+  border-radius:3px 3px 2px 2px;
+  border:1px solid #b38c3e;
+  background:linear-gradient(90deg,#c69c4f,#ffecaa,#a97d35);
   box-sizing:border-box;
 }
-html.servitum-navidad .servitum-navidad-header-foto{display:block}
-@media(max-width:850px){
-  .servitum-navidad-header-foto{height:117px;background-position:center top}
+@keyframes servitum-bola-balanceo{
+  0%{transform:rotate(-5deg)}
+  100%{transform:rotate(5deg)}
 }
-@media(max-width:500px){
-  .servitum-navidad-header-foto{height:102px;background-position:center top;background-color:#fff}
+@media(max-width:700px){
+  .servitum-navidad-bolas{height:84px}
+  .servitum-navidad-colgante{--tamano:30px!important;--hilo:27px!important}
+  .servitum-navidad-colgante:nth-child(2),
+  .servitum-navidad-colgante:nth-child(3){display:none}
+  .servitum-navidad-colgante:first-child{left:10%}
+  .servitum-navidad-colgante:last-child{left:80%}
 }
-@media print{
-  .servitum-navidad-header-foto{display:none!important}
+@media(prefers-reduced-motion:reduce){
+  .servitum-navidad-colgante{animation:none!important;transform:none!important}
+}
+@media print {
+  .servitum-navidad-bolas{display:none!important}
 }
 </style>
 </head>
 <body>
 
 
-<div id="servitum-navidad-header-foto-v3" class="servitum-navidad-header-foto" aria-hidden="true"></div>
+<div id="servitum-navidad-bolas-v6" class="servitum-navidad-bolas" aria-hidden="true">
+  <span class="servitum-navidad-colgante roja" style="--x:10%;--tamano:42px;--hilo:32px;--duracion:6.2s;--demora:-1.1s"><span class="servitum-navidad-bola"></span></span>
+  <span class="servitum-navidad-colgante dorada" style="--x:29%;--tamano:35px;--hilo:48px;--duracion:7.5s;--demora:-2.9s"><span class="servitum-navidad-bola"></span></span>
+  <span class="servitum-navidad-colgante roja" style="--x:68%;--tamano:37px;--hilo:37px;--duracion:7.2s;--demora:-4.1s"><span class="servitum-navidad-bola"></span></span>
+  <span class="servitum-navidad-colgante dorada" style="--x:88%;--tamano:44px;--hilo:29px;--duracion:6.8s;--demora:-.6s"><span class="servitum-navidad-bola"></span></span>
+</div>
 <header class="kc-header">
   <div class="wrap nav">
     <a class="brand" href="#inicio"><img src="assets/imagenes/59b24c87ccd7b595e4d9.webp" alt="Servitum" decoding="async"></a>
