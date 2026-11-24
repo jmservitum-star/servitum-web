@@ -981,36 +981,39 @@ html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{
  html.servitum-navidad .servitum-navidad-snow{display:none}
 }
 </style>
+<style id="servitum-navidad-foto-v3">
+/* Fotografía navideña de pinos y adornos: arriba del menú, sin cubrir el logotipo. */
+.servitum-navidad-header-foto{
+  display:none;
+  width:100%;
+  height:150px;
+  overflow:hidden;
+  pointer-events:none;
+  background-color:#051d37;
+  background-image:url("assets/imagenes/navidad-encabezado.svg");
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center 42%;
+  border-bottom:3px solid #d6ad59;
+  box-sizing:border-box;
+}
+html.servitum-navidad .servitum-navidad-header-foto{display:block}
+@media(max-width:850px){
+  .servitum-navidad-header-foto{height:112px;background-position:center 42%}
+}
+@media(max-width:500px){
+  .servitum-navidad-header-foto{height:94px;background-position:center 43%}
+}
+@media print{
+  .servitum-navidad-header-foto{display:none!important}
+}
+</style>
 </head>
 <body>
 
 
+<div id="servitum-navidad-header-foto-v3" class="servitum-navidad-header-foto" aria-hidden="true"></div>
 <header class="kc-header">
-<div id="servitum-navidad-garland-v2" class="servitum-navidad-garland" aria-hidden="true">
-  <div class="servitum-navidad-garland-corner left"><svg viewBox="0 0 236 42" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M-12 4 Q53 8 111 8 T237 12" fill="none" stroke="#986b35" stroke-width="2"/>
-  <g stroke="#116341" stroke-width="3.8" stroke-linecap="round">
-    <path d="M8 7l-4 13M8 7l14 13M26 7l-5 21M26 7l18 14M45 8l-9 17M45 8l17 16M66 8L54 25M66 8l19 15M88 8L73 24M88 8l17 17M112 9l-13 15M112 9l18 13M137 10l-11 15M137 10l16 13M159 11l-7 12M159 11l12 12M182 11l-7 10M182 11l11 9"/>
-  </g>
-  <g stroke="#2c8454" stroke-width="2.1" stroke-linecap="round">
-    <path d="M10 9l-9 7M10 9l12 5M32 8L17 16M32 8l13 8M56 8L42 17M56 8l14 8M79 9L65 17M79 9l13 7M101 9l-12 8M101 9l11 7M127 10l-9 9M127 10l11 8M151 11l-7 8M151 11l11 8"/>
-  </g>
-  <g fill="#b92e37"><circle cx="29" cy="19" r="4"/><circle cx="38" cy="21" r="3.3"/><circle cx="81" cy="21" r="3.4"/><circle cx="90" cy="23" r="3"/><circle cx="147" cy="22" r="3.3"/></g>
-  <g fill="#e8b650" stroke="#fff5cb" stroke-width=".8"><circle cx="64" cy="28" r="6"/><circle cx="126" cy="27" r="4.8"/></g>
-</svg></div>
-  <div class="servitum-navidad-garland-lights"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-  <div class="servitum-navidad-garland-corner right"><svg viewBox="0 0 236 42" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M-12 4 Q53 8 111 8 T237 12" fill="none" stroke="#986b35" stroke-width="2"/>
-  <g stroke="#116341" stroke-width="3.8" stroke-linecap="round">
-    <path d="M8 7l-4 13M8 7l14 13M26 7l-5 21M26 7l18 14M45 8l-9 17M45 8l17 16M66 8L54 25M66 8l19 15M88 8L73 24M88 8l17 17M112 9l-13 15M112 9l18 13M137 10l-11 15M137 10l16 13M159 11l-7 12M159 11l12 12M182 11l-7 10M182 11l11 9"/>
-  </g>
-  <g stroke="#2c8454" stroke-width="2.1" stroke-linecap="round">
-    <path d="M10 9l-9 7M10 9l12 5M32 8L17 16M32 8l13 8M56 8L42 17M56 8l14 8M79 9L65 17M79 9l13 7M101 9l-12 8M101 9l11 7M127 10l-9 9M127 10l11 8M151 11l-7 8M151 11l11 8"/>
-  </g>
-  <g fill="#b92e37"><circle cx="29" cy="19" r="4"/><circle cx="38" cy="21" r="3.3"/><circle cx="81" cy="21" r="3.4"/><circle cx="90" cy="23" r="3"/><circle cx="147" cy="22" r="3.3"/></g>
-  <g fill="#e8b650" stroke="#fff5cb" stroke-width=".8"><circle cx="64" cy="28" r="6"/><circle cx="126" cy="27" r="4.8"/></g>
-</svg></div>
-</div>
   <div class="wrap nav">
     <a class="brand" href="#inicio"><img src="assets/imagenes/59b24c87ccd7b595e4d9.webp" alt="Servitum" decoding="async"></a>
     <button class="menu" id="menu" aria-label="Abrir menú">☰</button>
