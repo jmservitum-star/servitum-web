@@ -858,6 +858,81 @@ img[alt="Soluciones Servitum"]{
   #servitum-new-arrival .servitum-new-badge {animation:none !important;}
 }
 </style>
+<style id="servitum-christmas-season-css">
+/* Servitum: decoración de temporada, sin fotografías ni dependencias externas. */
+.servitum-navidad-only{display:none !important}
+html.servitum-navidad .servitum-navidad-only{display:flex !important}
+html.servitum-navidad .kc-header{border-top:3px solid #d5a945 !important}
+.servitum-navidad-ribbon{
+  box-sizing:border-box;width:100%;min-height:43px;
+  padding:10px 18px;gap:12px;align-items:center;justify-content:center;
+  text-align:center;background:linear-gradient(110deg,#0b5847,#0c4968 48%,#0b5847);
+  color:#fff;font-size:13px;font-weight:700;letter-spacing:.01em;
+  border-bottom:2px solid rgba(236,194,100,.55)
+}
+.servitum-navidad-ribbon .servitum-navidad-star{
+  color:#ffda81;font-size:17px;line-height:1;
+  animation:servitum-navidad-brillo 4s ease-in-out infinite
+}
+.servitum-navidad-hero-tag{
+  align-self:center;width:max-content;max-width:100%;box-sizing:border-box;
+  align-items:center;justify-content:center;gap:8px;
+  padding:7px 13px;margin:0 0 14px;
+  border:1px solid #e1ceaa;border-radius:999px;
+  background:#fff9ef;color:#22674e;font-size:12px;font-weight:800;line-height:1.35;
+  text-align:center;box-shadow:0 3px 12px rgba(30,90,65,.08)
+}
+.servitum-navidad-footer-note{
+  box-sizing:border-box;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:10px;text-align:center;
+  margin:32px auto 0;max-width:1140px;padding:16px 24px;
+  border-radius:13px;border:1px solid rgba(255,214,134,.25);
+  background:linear-gradient(120deg,rgba(13,85,67,.40),rgba(10,67,92,.50));
+  color:#fff2d7;font-size:14px;font-weight:700;line-height:1.5
+}
+.servitum-navidad-footer-note .servitum-navidad-star{color:#ffd477}
+@keyframes servitum-navidad-brillo{
+  0%,100%{opacity:.6;transform:scale(.96)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+@media(max-width:600px){
+  .servitum-navidad-ribbon{padding:9px 12px;gap:7px;font-size:12px;line-height:1.4}
+  .servitum-navidad-ribbon .servitum-navidad-star{font-size:14px}
+  .servitum-navidad-hero-tag{font-size:11px;margin-bottom:12px}
+  .servitum-navidad-footer-note{margin:24px 14px 0;padding:13px 15px;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .servitum-navidad-ribbon .servitum-navidad-star{animation:none !important}
+}
+</style>
+<script id="servitum-christmas-season-js">
+(function(){
+  'use strict';
+  // Temporada anual: 15 noviembre a 6 enero, según la fecha de República Dominicana.
+  function enTemporada(date){
+    var m,d;
+    try{
+      var parts=new Intl.DateTimeFormat('en-US',{
+        timeZone:'America/Santo_Domingo',month:'2-digit',day:'2-digit'
+      }).formatToParts(date);
+      m=Number(parts.find(function(x){return x.type==='month'}).value);
+      d=Number(parts.find(function(x){return x.type==='day'}).value);
+    }catch(e){
+      m=date.getMonth()+1;d=date.getDate();
+    }
+    return (m===11&&d>=15)||m===12||(m===1&&d<=6);
+  }
+  function actualizar(){
+    document.documentElement.classList.toggle('servitum-navidad',enTemporada(new Date()));
+  }
+  actualizar();
+  window.addEventListener('pageshow',actualizar);
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden)actualizar();
+  });
+  window.setInterval(actualizar,60*60*1000);
+})();
+</script>
 </head>
 <body>
 
@@ -942,13 +1017,18 @@ img[alt="Soluciones Servitum"]{
     </div>
   </div>
 </header>
-
+<div class="servitum-navidad-ribbon servitum-navidad-only" role="note" aria-label="Saludo navideño de Servitum">
+  <span class="servitum-navidad-star" aria-hidden="true">✦</span>
+  <span>🎄 Servitum les desea una Feliz Navidad y un próspero Año Nuevo</span>
+  <span class="servitum-navidad-star" aria-hidden="true">✦</span>
+</div>
 
 <main>
 
 <section class="kc-hero" id="inicio">
   <div class="wrap kc-hero-grid">
     <div class="kc-hero-copy">
+      <span class="servitum-navidad-hero-tag servitum-navidad-only" aria-hidden="true">❄️ Temporada navideña · Servitum</span>
       <span class="kc-eyebrow servitum-brand-case">Servitum · Soluciones para empresas</span>
       <h1>Nos encargamos de tus necesidades.</h1>
       <p>Encuentra productos profesionales para baños, limpieza, manejo de residuos, dispensadores y áreas comunes.</p>
@@ -1318,6 +1398,11 @@ img[alt="Soluciones Servitum"]{
       <span>República Dominicana</span>
     </div>
   </div>
+<div class="wrap servitum-navidad-footer-note servitum-navidad-only" role="note">
+  <span class="servitum-navidad-star" aria-hidden="true">✦</span>
+  <span>Gracias por confiar en Servitum. ¡Felices fiestas y un excelente Año Nuevo!</span>
+  <span class="servitum-navidad-star" aria-hidden="true">✦</span>
+</div>
   <div class="wrap servitum-footer-bottom">
     <span>© 2026 Servitum SRL · Todos los derechos reservados.</span>
     <a href="#inicio">↑ Volver arriba</a>
