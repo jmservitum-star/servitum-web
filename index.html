@@ -1746,10 +1746,7 @@ renderCart();
     b.setAttribute('aria-label','Ver imagen '+(i+1)+' de '+slides.length);
     b.addEventListener('click',()=>go(i,true));
     dotsWrap.appendChild(b);
-    if(slide.mode==='photo'){
-      const pre=new Image();
-      pre.src=slide.src;
-    }
+    // Las fotos se descargan al mostrarse, no todas durante la primera carga.
   });
 
   const dots=[...dotsWrap.children];
@@ -1779,11 +1776,21 @@ renderCart();
     if(manual) restart();
   }
 
-  function advance(){go(index+1,false)}
+  function advance(){if(!document.hidden)go(index+1,false)}
+  let inViewport=true;
   function restart(){
     window.clearInterval(timer);
-    timer=window.setInterval(advance,4300);
+    timer=null;
+    if(!document.hidden&&inViewport) timer=window.setInterval(advance,4300);
   }
+  if('IntersectionObserver' in window){
+    const observer=new IntersectionObserver(entries=>{
+      const visible=entries.some(entry=>entry.isIntersecting);
+      if(visible!==inViewport){inViewport=visible;restart();}
+    });
+    observer.observe(root);
+  }
+  document.addEventListener('visibilitychange',restart);
 
   prev.addEventListener('click',()=>go(index-1,true));
   next.addEventListener('click',()=>go(index+1,true));
@@ -1846,8 +1853,28 @@ renderCart();
       display(current+1);
     };
     if(!reduced){
-      // Arranque escalonado para que las seis tarjetas no cambien al mismo tiempo.
-      setTimeout(()=>{advance();timer=setInterval(advance,4800)},2500+index*560);
+      // Activar rotación solo cuando la tarjeta se aproxima a la pantalla.
+      let pending=null;
+      const start=()=>{
+        if(pending!==null||timer!==null) return;
+        pending=setTimeout(()=>{
+          pending=null;
+          advance();
+          timer=setInterval(advance,4800);
+        },2500+index*560);
+      };
+      const stop=()=>{
+        if(pending!==null){clearTimeout(pending);pending=null;}
+        if(timer!==null){clearInterval(timer);timer=null;}
+      };
+      if('IntersectionObserver' in window){
+        const observer=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>entry.isIntersecting?start():stop());
+        },{rootMargin:'120px'});
+        observer.observe(card);
+      }else{
+        start();
+      }
     }
   });
 })();
