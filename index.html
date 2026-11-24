@@ -1682,18 +1682,33 @@ renderCart();
     },{passive:true});
 
     if(model.slides.length>1){
-      // Precargar las fotos evita que la tarjeta parezca detenida mientras carga la siguiente imagen.
-      // Las demás imágenes se solicitan cuando se muestran, evitando descargas simultáneas.
       const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const advance=()=>{
         if(document.hidden) return;
         show(card,model,model.current+1,!reduced);
       };
-      // Primer cambio rápido y luego rotación continua. No se detiene por hover o foco.
-      setTimeout(()=>{
-        advance();
-        setInterval(advance,3000);
-      },700+(i*70));
+      // Rotar solo las tarjetas cercanas a la pantalla para evitar descargas fuera de vista.
+      let startId=null, intervalId=null;
+      const startAuto=()=>{
+        if(startId!==null||intervalId!==null) return;
+        startId=setTimeout(()=>{
+          startId=null;
+          advance();
+          intervalId=setInterval(advance,3000);
+        },700+(i*70));
+      };
+      const stopAuto=()=>{
+        if(startId!==null){clearTimeout(startId);startId=null;}
+        if(intervalId!==null){clearInterval(intervalId);intervalId=null;}
+      };
+      if('IntersectionObserver' in window){
+        const observer=new IntersectionObserver(entries=>{
+          entries.forEach(entry=>entry.isIntersecting?startAuto():stopAuto());
+        },{rootMargin:'120px'});
+        observer.observe(card);
+      }else{
+        startAuto();
+      }
     }
   });
 })();
