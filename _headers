@@ -1,0 +1,4 @@
+# Cloudflare Pages: cache de imagenes locales para visitas repetidas.
+# No se aplica a HTML, catalogo PDF ni otros documentos.
+/assets/imagenes/*
+  Cache-Control: public, max-age=604800
