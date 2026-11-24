@@ -981,28 +981,28 @@ html.servitum-navidad .kc-sector-card:nth-child(3n+2)::after{
  html.servitum-navidad .servitum-navidad-snow{display:none}
 }
 </style>
-<style id="servitum-navidad-foto-hd-v4">
+<style id="servitum-navidad-foto-blanco-v5">
 /* Fotografía navideña de pinos y adornos: arriba del menú, sin cubrir el logotipo. */
 .servitum-navidad-header-foto{
   display:none;
   width:100%;
-  height:190px;
+  height:clamp(112px,14.285vw,258px);
   overflow:hidden;
   pointer-events:none;
-  background-color:#051d37;
-  background-image:url("assets/imagenes/navidad-encabezado.svg?v=hd20261124");
+  background-color:#ffffff;
+  background-image:url("assets/imagenes/navidad-encabezado.svg?v=blanco20261124");
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center top;
-  border-bottom:3px solid #d6ad59;
+  border-bottom:0;
   box-sizing:border-box;
 }
 html.servitum-navidad .servitum-navidad-header-foto{display:block}
 @media(max-width:850px){
-  .servitum-navidad-header-foto{height:135px;background-position:center top}
+  .servitum-navidad-header-foto{height:117px;background-position:center top}
 }
 @media(max-width:500px){
-  .servitum-navidad-header-foto{height:102px;background-position:center top}
+  .servitum-navidad-header-foto{height:102px;background-position:center top;background-color:#fff}
 }
 @media print{
   .servitum-navidad-header-foto{display:none!important}
