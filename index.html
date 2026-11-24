@@ -858,7 +858,7 @@ img[alt="Soluciones Servitum"]{
     </div>
     <div class="kc-hero-visual">
       <div class="servitum-service-carousel" id="servitumServiceCarousel" data-logo="assets/imagenes/59b24c87ccd7b595e4d9.webp" aria-roledescription="carrusel" aria-label="Servitum en acción">
-        <img class="servitum-service-image is-logo" id="servitumServiceImage" src="assets/imagenes/59b24c87ccd7b595e4d9.webp" alt="Servitum"  loading="lazy" decoding="async"/>
+        <img class="servitum-service-image is-logo" id="servitumServiceImage" src="assets/imagenes/59b24c87ccd7b595e4d9.webp" alt="Servitum" loading="eager" fetchpriority="high" decoding="async"/>
         <button class="servitum-service-arrow prev" id="servitumServicePrev" type="button" aria-label="Imagen anterior">‹</button>
         <button class="servitum-service-arrow next" id="servitumServiceNext" type="button" aria-label="Imagen siguiente">›</button>
         <div class="servitum-service-caption" id="servitumServiceCaption" aria-live="polite">Servitum</div>
@@ -1279,7 +1279,7 @@ function openCategory(index){
    const images=(Array.isArray(it[3])&&it[3].length?it[3]:[it[2]||c.image]);
    const galleryId='gallery_'+index+'_'+i;
    const gallery=`<div class="product-gallery" data-gallery="${galleryId}" data-index="0">
-     <img src="${images[0]}" alt="${it[0]}" data-gallery-image>
+     <img src="${images[0]}" alt="${it[0]}" loading="lazy" decoding="async" data-gallery-image>
      ${images.length>1?`<button type="button" class="gallery-nav gallery-prev" aria-label="Foto anterior">‹</button><button type="button" class="gallery-nav gallery-next" aria-label="Foto siguiente">›</button><span class="gallery-count">1/${images.length}</span><div class="gallery-dots">${images.map((_,n)=>`<button type="button" class="gallery-dot ${n===0?'active':''}" data-gallery-dot="${n}" aria-label="Ver foto ${n+1}"></button>`).join('')}</div>`:''}
    </div>`;
    return `<article class="product" data-images='${JSON.stringify(images)}'>${gallery}<div class="product-body"><h3>${it[0]}</h3><p>${it[1]}</p><button type="button" class="add ${on?'selected':''}" data-key="${key}">${on?'Agregar otra unidad +':'+ Agregar a cotización'}</button></div></article>`;
@@ -1618,7 +1618,7 @@ renderCart();
 
   host.innerHTML=models.map(m=>`<article class="category-showcase-card" tabindex="0" role="button" aria-label="Abrir categoría ${m.cat.name}" data-showcase-category="${m.i}">
     <div class="category-showcase-media">
-      <img class="category-showcase-img" src="${m.slides[0].image}" alt="${m.slides[0].name}">
+      <img class="category-showcase-img" src="${m.slides[0].image}" alt="${m.slides[0].name}" loading="lazy" decoding="async">
       <span class="category-showcase-index">${String(m.i+1).padStart(2,'0')}</span>
       ${m.slides.length>1?'<button type="button" class="category-showcase-arrow category-showcase-prev" aria-label="Foto anterior">‹</button><button type="button" class="category-showcase-arrow category-showcase-next" aria-label="Foto siguiente">›</button>':''}
       <div class="category-showcase-product">${m.slides[0].name}</div>
