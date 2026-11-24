@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+<rect width="900" height="700" fill="white"/>
+<g fill="none" stroke="#0b4f8a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M315 500V285c0-38 30-68 68-68h90c38 0 68 30 68 68v215"/>
+  <path d="M350 217v-45h155v45"/>
+  <path d="M390 172v-45h78v45"/>
+  <path d="M541 300c52-48 112-50 158-12"/>
+  <path d="M565 355c62-35 119-24 156 18"/>
+  <path d="M559 418c54-12 103 3 133 41"/>
+  <path d="M315 500h226"/>
+</g>
+<circle cx="605" cy="285" r="12" fill="#29a66a"/>
+<circle cx="650" cy="350" r="10" fill="#29a66a"/>
+<circle cx="622" cy="420" r="9" fill="#29a66a"/>
+<text x="450" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#0b4f8a">CONTROL DE OLORES</text>
+</svg>
