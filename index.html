@@ -1824,6 +1824,7 @@ renderCart();
     const photo=card.querySelector('.kc-sector-photo');
     const dots=[...card.querySelectorAll('[data-sector-dot]')];
     let current=0, timer=null, token=0, failures=new Set();
+    let resetAuto=()=>{};
     function display(next,animated=true){
       const target=(next+model.photos.length)%model.photos.length;
       const ticket=++token;
@@ -1852,16 +1853,16 @@ renderCart();
         card.querySelector('.kc-sector-media').classList.add('kc-sector-image-unavailable');
       }
     });
-    card.querySelector('.kc-sector-prev').addEventListener('click',()=>display(current-1));
-    card.querySelector('.kc-sector-next').addEventListener('click',()=>display(current+1));
-    dots.forEach((dot,n)=>dot.addEventListener('click',()=>display(n)));
+    card.querySelector('.kc-sector-prev').addEventListener('click',()=>{display(current-1);resetAuto();});
+    card.querySelector('.kc-sector-next').addEventListener('click',()=>{display(current+1);resetAuto();});
+    dots.forEach((dot,n)=>dot.addEventListener('click',()=>{display(n);resetAuto();}));
     const advance=()=>{
       if(document.hidden||!card.isConnected||failures.size===model.photos.length) return;
       display(current+1);
     };
     if(!reduced){
       // Activar rotación solo cuando la tarjeta se aproxima a la pantalla.
-      let pending=null;
+      let pending=null, visible=false;
       const start=()=>{
         if(pending!==null||timer!==null) return;
         pending=setTimeout(()=>{
@@ -1874,12 +1875,17 @@ renderCart();
         if(pending!==null){clearTimeout(pending);pending=null;}
         if(timer!==null){clearInterval(timer);timer=null;}
       };
+      resetAuto=()=>{if(visible){stop();start();}};
       if('IntersectionObserver' in window){
         const observer=new IntersectionObserver(entries=>{
-          entries.forEach(entry=>entry.isIntersecting?start():stop());
+          entries.forEach(entry=>{
+            visible=entry.isIntersecting;
+            if(visible) start(); else stop();
+          });
         },{rootMargin:'120px'});
         observer.observe(card);
       }else{
+        visible=true;
         start();
       }
     }
