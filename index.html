@@ -1996,7 +1996,7 @@ document.addEventListener('DOMContentLoaded',function(){
     active.forEach((_,i)=>{
       const btn=document.createElement('button');
       btn.type='button';btn.setAttribute('aria-label','Ver producto '+(i+1));
-      btn.addEventListener('click',()=>go(i));
+      btn.addEventListener('click',()=>{go(i);restart();});
       dots.appendChild(btn);
     });
     current=Math.max(0,active.indexOf(selected));
