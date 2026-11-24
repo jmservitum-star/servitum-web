@@ -1,0 +1,45 @@
+name: Optimizar imágenes web Servitum
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/optimizar_web.py'
+      - '.github/workflows/optimizar-web.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Extraer imágenes sin alterar el diseño
+        run: python3 tools/optimizar_web.py
+      - name: Comprobar los resultados
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("index.html").read_text(encoding="utf-8")
+          paths = re.findall(r'assets/imagenes/[a-f0-9]{20}\.(?:webp|png|jpg|svg)', html)
+          assert len(paths) >= 300, f"Referencias inesperadas: {len(paths)}"
+          assert all(Path(p).is_file() for p in paths), "Faltan archivos"
+          assert len(html.encode("utf-8")) < 400000, "HTML todavía demasiado grande"
+          print(f"Validado: {len(paths)} referencias, {len(set(paths))} imágenes, {len(html)} caracteres HTML")
+          PY
+      - name: Publicar optimización en el repositorio
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html assets/imagenes/
+            git commit -m "Optimizar carga: extraer imágenes del HTML a archivos locales"
+            git push
+          else
+            echo "La página ya está optimizada."
+          fi
