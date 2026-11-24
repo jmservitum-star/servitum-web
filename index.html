@@ -1659,6 +1659,8 @@ renderCart();
 
   host.querySelectorAll('.category-showcase-card').forEach((card,i)=>{
     const model=models[i];
+    let resetAuto=()=>{};
+    const manualShow=n=>{show(card,model,n);resetAuto();};
     const open=()=>{ if(typeof openCategory==='function') openCategory(model.i); };
     card.querySelector('.category-showcase-open').addEventListener('click',e=>{e.stopPropagation();open();});
     card.addEventListener('click',e=>{
@@ -1669,16 +1671,16 @@ renderCart();
       if((e.key==='Enter'||e.key===' ') && !e.target.closest('button')){e.preventDefault();open();}
     });
     const prev=card.querySelector('.category-showcase-prev'), next=card.querySelector('.category-showcase-next');
-    if(prev) prev.addEventListener('click',e=>{e.stopPropagation();show(card,model,model.current-1)});
-    if(next) next.addEventListener('click',e=>{e.stopPropagation();show(card,model,model.current+1)});
-    card.querySelectorAll('.category-showcase-dot').forEach((d,n)=>d.addEventListener('click',e=>{e.stopPropagation();show(card,model,n)}));
+    if(prev) prev.addEventListener('click',e=>{e.stopPropagation();manualShow(model.current-1)});
+    if(next) next.addEventListener('click',e=>{e.stopPropagation();manualShow(model.current+1)});
+    card.querySelectorAll('.category-showcase-dot').forEach((d,n)=>d.addEventListener('click',e=>{e.stopPropagation();manualShow(n)}));
 
     let x0=null;
     card.addEventListener('touchstart',e=>{x0=e.touches?.[0]?.clientX??null},{passive:true});
     card.addEventListener('touchend',e=>{
       if(x0===null || model.slides.length<2) return;
       const x1=e.changedTouches?.[0]?.clientX??x0, dx=x1-x0; x0=null;
-      if(Math.abs(dx)>45) show(card,model,model.current+(dx<0?1:-1));
+      if(Math.abs(dx)>45) manualShow(model.current+(dx<0?1:-1));
     },{passive:true});
 
     if(model.slides.length>1){
@@ -1688,7 +1690,7 @@ renderCart();
         show(card,model,model.current+1,!reduced);
       };
       // Rotar solo las tarjetas cercanas a la pantalla para evitar descargas fuera de vista.
-      let startId=null, intervalId=null;
+      let startId=null, intervalId=null, visible=false;
       const startAuto=()=>{
         if(startId!==null||intervalId!==null) return;
         startId=setTimeout(()=>{
@@ -1701,12 +1703,17 @@ renderCart();
         if(startId!==null){clearTimeout(startId);startId=null;}
         if(intervalId!==null){clearInterval(intervalId);intervalId=null;}
       };
+      resetAuto=()=>{if(visible){stopAuto();startAuto();}};
       if('IntersectionObserver' in window){
         const observer=new IntersectionObserver(entries=>{
-          entries.forEach(entry=>entry.isIntersecting?startAuto():stopAuto());
+          entries.forEach(entry=>{
+            visible=entry.isIntersecting;
+            if(visible) startAuto(); else stopAuto();
+          });
         },{rootMargin:'120px'});
         observer.observe(card);
       }else{
+        visible=true;
         startAuto();
       }
     }
