@@ -1223,6 +1223,37 @@ html.servitum-navidad .servitum-campana-navidad-2026{display:block}
 }
 @media print{.servitum-campana-navidad-2026{display:none!important}}
 </style>
+
+<style id="servitum-nevada-global-css">
+/* Vista previa: nieve sobre toda la página. Solo en temporada navideña. */
+#servitum-nevada-global {
+  position:fixed;inset:0;overflow:hidden;pointer-events:none;
+  z-index:5000;display:none;contain:layout style paint;
+}
+html.servitum-navidad #servitum-nevada-global{display:block}
+#servitum-nevada-global .servitum-copo{
+  position:absolute;top:-7vh;left:var(--copo-x);
+  font-family:Arial,sans-serif;font-size:var(--copo-size);
+  line-height:1;color:#92bed9;opacity:0;user-select:none;
+  text-shadow:0 1px 2px rgba(255,255,255,.84);
+  will-change:transform;
+  animation:servitum-caida-copos var(--copo-duracion) linear var(--copo-retraso) infinite;
+}
+@keyframes servitum-caida-copos{
+  0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}
+  12%{opacity:var(--copo-opacidad)}
+  85%{opacity:var(--copo-opacidad)}
+  100%{transform:translate3d(var(--copo-desplazamiento),118vh,0) rotate(225deg);opacity:0}
+}
+/* Evitar nieve duplicada en el hero: ahora cae sobre la página completa. */
+html.servitum-navidad .servitum-navidad-snow{display:none!important}
+@media(max-width:700px){
+  #servitum-nevada-global .servitum-copo:nth-child(n+18){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  #servitum-nevada-global{display:none!important}
+}
+</style>
 </head>
 <body>
 
@@ -2555,4 +2586,39 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!document.hidden){refresh();restart();}
   });
 })();
-</script></body></html>
+</script>
+<script id="servitum-nevada-global-js">
+(function(){
+  'use strict';
+  function iniciarNevada(){
+    if(document.getElementById('servitum-nevada-global')||!document.body)return;
+    var capa=document.createElement('div');
+    capa.id='servitum-nevada-global';
+    capa.setAttribute('aria-hidden','true');
+    var fragmento=document.createDocumentFragment();
+    function azar(i,s){
+      var n=Math.sin(i*73.91+s*41.23)*43758.5453;
+      return n-Math.floor(n);
+    }
+    for(var i=1;i<=32;i++){
+      var copo=document.createElement('span');
+      copo.className='servitum-copo';
+      copo.textContent='❄';
+      var duracion=16+azar(i,2)*16;
+      copo.style.setProperty('--copo-x',(azar(i,1)*100).toFixed(2)+'vw');
+      copo.style.setProperty('--copo-size',(11+azar(i,3)*12).toFixed(1)+'px');
+      copo.style.setProperty('--copo-duracion',duracion.toFixed(2)+'s');
+      copo.style.setProperty('--copo-retraso',(-azar(i,4)*duracion).toFixed(2)+'s');
+      copo.style.setProperty('--copo-desplazamiento',((azar(i,5)-.5)*110).toFixed(0)+'px');
+      copo.style.setProperty('--copo-opacidad',(.28+azar(i,6)*.25).toFixed(2));
+      fragmento.appendChild(copo);
+    }
+    capa.appendChild(fragmento);
+    document.body.appendChild(capa);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',iniciarNevada,{once:true});
+  }else{iniciarNevada();}
+})();
+</script>
+</body></html>
