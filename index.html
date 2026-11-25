@@ -933,6 +933,24 @@ html.servitum-navidad .kc-header{border-top:3px solid #d5a945 !important}
   window.setInterval(actualizar,60*60*1000);
 })();
 </script>
+<script id="servitum-navidad-prioridad-carga-lcp">
+(function(){
+  'use strict';
+  if(!document.documentElement.classList.contains('servitum-navidad')) return;
+  var esMovil=window.matchMedia && window.matchMedia('(max-width:600px)').matches;
+  var recurso=esMovil
+    ? 'assets/imagenes/feliz-navidad-bajito-sin-sombra-movil-optimizado.webp'
+    : 'assets/imagenes/feliz-navidad-bajito-sin-sombra-optimizado.webp';
+  var enlace=document.createElement('link');
+  enlace.rel='preload';
+  enlace.as='image';
+  enlace.type='image/webp';
+  enlace.href=recurso;
+  enlace.fetchPriority='high';
+  document.head.appendChild(enlace);
+})();
+</script>
+
 <style id="servitum-navidad-enhanced-v2">
 /* Ramas de pino, luces y adornos de temporada: todo local, sin recursos externos. */
 .servitum-navidad-garland{display:none;position:relative;height:37px;width:100%;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#f8fbf9,#fff)}
@@ -1308,9 +1326,18 @@ html.servitum-navidad .servitum-navidad-snow{display:none!important}
 
 <div id="servitum-navidad-feliz-v12" class="servitum-navidad-saludo">
   <picture>
-    <source media="(max-width:600px)" srcset="assets/imagenes/feliz-navidad-bajito-sin-sombra-movil.svg?v=sinSombraTotal20261124">
-    <img src="assets/imagenes/feliz-navidad-bajito-sin-sombra.svg?v=sinSombraTotal20261124" width="2172" height="319" alt="Feliz Navidad de Servitum con ramas naturales, lazos dorados, campanas y esferas navideñas" loading="lazy" decoding="async">
+    <source media="(max-width:600px)" srcset="assets/imagenes/feliz-navidad-bajito-sin-sombra-movil-optimizado.webp" type="image/webp" width="1250" height="319">
+    <img src="assets/imagenes/feliz-navidad-bajito-sin-sombra-optimizado.webp" width="2172" height="319" alt="Feliz Navidad de Servitum con ramas naturales, lazos dorados, campanas y esferas navideñas" loading="lazy" decoding="async">
   </picture>
+<script id="servitum-navidad-imagen-visible-lcp">
+if(document.documentElement.classList.contains('servitum-navidad')){
+  var imagenNavidad=document.querySelector('#servitum-navidad-feliz-v12 img');
+  if(imagenNavidad){
+    imagenNavidad.loading='eager';
+    imagenNavidad.fetchPriority='high';
+  }
+}
+</script>
 </div>
 <header class="kc-header">
   <div class="wrap nav">
